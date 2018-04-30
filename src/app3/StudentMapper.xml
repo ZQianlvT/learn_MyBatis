@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app3.Student">
+
+    <resultMap id="studentMap" type="app3.Student">
+        <id property="id" column="s_id"/>
+        <result property="name" column="s_name"/>
+        <result property="sal" column="s_sal"/>
+    </resultMap>
+
+    <!-- 增加学生 -->
+    <insert id="add" parameterType="app3.Student">
+        INSERT INTO students(s_id,s_name,s_sal) VALUES (#{id},#{name},#{sal})
+    </insert>
+
+    <!-- 分页查询 -->
+    <select id="findAllWithPage" parameterType="map" resultMap="studentMap">
+        SELECT S_ID,S_NAME,S_SAL
+        FROM (SELECT S_ID,S_NAME,S_SAL,ROWNUM ROW_NUM FROM STUDENTS) a
+        WHERE ROW_NUM BETWEEN #{start} AND #{end}
+    </select>
+
+</mapper>

@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="learn_MyBatis:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/learn_MyBatis_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="learn_MyBatis/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="learn_MyBatis" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mybatis-3.1.1" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/ojdbc5.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 设置一个默认的环境信息 -->
+    <environments default="oracle_developer">
+        <!-- 连接环境信息，取唯一一个名字 -->
+        <environment id="oracle_developer">
+            <!-- MyBatis使用JDBC事务管理方式 -->
+            <transactionManager type="jdbc"/>
+            <!-- MyBatis使用连接池来获取连接 -->
+            <dataSource type="pooled">
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"/>
+                <property name="username" value="scott"/>
+                <property name="password" value="tiger"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="app4/StudentMapper.xml"/>
+    </mappers>
+</configuration>

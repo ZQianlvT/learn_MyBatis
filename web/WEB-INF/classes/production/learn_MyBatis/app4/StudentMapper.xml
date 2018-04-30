@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app4.Student">
+
+    <resultMap id="studentMap" type="app4.Student">
+        <id property="id" column="s_id"/>
+        <result property="name" column="s_name"/>
+        <result property="sal" column="s_sal"/>
+    </resultMap>
+
+    <!-- 动态查询学生 -->
+    <select id="dynaFindAll" parameterType="map" resultMap="studentMap">
+        SELECT S_ID,S_NAME,S_SAL FROM STUDENTS
+        <where>
+            <if test="id!=null">
+                AND S_ID = #{id}
+            </if>
+            <if test="name!=null">
+                AND S_NAME = #{name}
+            </if>
+            <if test="sal!=null">
+                AND S_SAL = #{sal}
+            </if>
+        </where>
+    </select>
+
+    <!-- 动态更新学生 -->
+    <update id="dynaUpdate" parameterType="map">
+        UPDATE students
+        <set>
+            <if test="name!=null">
+                s_name = #{name},
+            </if>
+            <if test="sal!=null">
+                s_sal = #{sal},
+            </if>
+        </set>
+        where S_id =#{id}
+    </update>
+
+    <!-- 动态删除学生 -->
+    <delete id="dynaDelete">
+        DELETE FROM students WHERE s_id IN
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <!-- 动态插入学生 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                s_id,
+            </if>
+            <if test="name!=null">
+                s_name,
+            </if>
+            <if test="sal!=null">
+                s_sal,
+            </if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="sal!=null">
+                #{sal},
+            </if>
+        </trim>
+    </sql>
+    <insert id="dynaInsert" parameterType="app4.Student">
+        INSERT INTO students(<include refid="key"/>) VALUES (<include refid="value"/>)
+    </insert>
+
+</mapper>
